@@ -89,6 +89,9 @@ class DiviPostCarousel {
      * Register scripts and styles
      */
     public function register_scripts() {
+        // Generate cache busting version string
+        $cache_bust = DIVI_POST_CAROUSEL_VERSION . '.' . time();
+        
         // Swiper CSS
         wp_register_style(
             'swiper-css',
@@ -111,7 +114,7 @@ class DiviPostCarousel {
             'divi-post-carousel-css',
             DIVI_POST_CAROUSEL_URL . 'assets/css/post-carousel.css',
             array('swiper-css'),
-            DIVI_POST_CAROUSEL_VERSION
+            $cache_bust
         );
 
         // Module JS
@@ -119,7 +122,7 @@ class DiviPostCarousel {
             'divi-post-carousel-js',
             DIVI_POST_CAROUSEL_URL . 'assets/js/post-carousel.js',
             array('jquery', 'swiper-js'),
-            DIVI_POST_CAROUSEL_VERSION,
+            $cache_bust,
             true
         );
     }
