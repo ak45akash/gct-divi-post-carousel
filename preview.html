@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divi Post Carousel Preview</title>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
+    <!-- Module CSS -->
+    <link rel="stylesheet" href="assets/css/post-carousel.css">
+    <style>
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .preview-section {
+            margin-bottom: 50px;
+        }
+        .section-title {
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        /* For preview purpose */
+        .preview-controls {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .preview-controls select {
+            padding: 8px;
+            margin-right: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Divi Post Carousel Module Preview</h1>
+        
+        <div class="preview-section">
+            <h2 class="section-title">Preview Controls</h2>
+            <div class="preview-controls">
+                <label for="service-type">Service/Category Type:</label>
+                <select id="service-type" onchange="changeCategory(this.value)">
+                    <option value="burials">Burials</option>
+                    <option value="memorials">Memorials</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="preview-section">
+            <h2 class="section-title">Module Preview - <span id="current-category">Burials</span></h2>
+            
+            <!-- Burials Carousel -->
+            <div class="dpc-container" id="dpc_burials">
+                <!-- Featured Content Section -->
+                <div class="dpc-featured-content">
+                    <!-- Featured Image -->
+                    <div class="dpc-featured-image">
+                        <img src="https://source.unsplash.com/random/800x600/?cemetery" alt="Sample burial service">
+                    </div>
+                    
+                    <!-- Featured Text Content -->
+                    <div class="dpc-featured-text">
+                        <div class="dpc-featured-meta">
+                            <span class="dpc-featured-category">Burials</span>
+                            <span class="dpc-featured-date">June 15, 2023</span>
+                        </div>
+                        <h2 class="dpc-featured-title">Understanding Traditional Burial Options</h2>
+                        <div class="dpc-featured-excerpt">
+                            Traditional burial services provide families with a meaningful way to honor and remember their loved ones. This comprehensive guide explains the various options available, from selecting the right burial plot to choosing appropriate memorial markers. Our experienced team is dedicated to helping you navigate this difficult process with compassion and care.
+                        </div>
+                        <a href="#" class="dpc-featured-link">Read More &rarr;</a>
+                    </div>
+                </div>
+                
+                <!-- Carousel Section -->
+                <div class="dpc-carousel-wrapper" data-autoplay="true" data-autoplay-speed="5000" data-loop="true" data-id="dpc_burials">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <!-- Slide 1 -->
+                            <div class="swiper-slide dpc-slide dpc-slide-active" data-post-id="1">
+                                <div class="dpc-card">
+                                    <div class="dpc-card-image">
+                                        <img src="https://source.unsplash.com/random/400x300/?cemetery" alt="Traditional Burial Services">
+                                    </div>
+                                    <div class="dpc-card-content">
+                                        <div class="dpc-card-meta">
+                                            <span class="dpc-card-category">Burials</span>
+                                            <span class="dpc-card-date">June 15, 2023</span>
+                                        </div>
+                                        <h3 class="dpc-card-title">Understanding Traditional Burial Options</h3>
+                                        <div class="dpc-card-excerpt">
+                                            Traditional burial services provide families with a meaningful way to honor and remember their loved ones.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 2 -->
+                            <div class="swiper-slide dpc-slide" data-post-id="2">
+                                <div class="dpc-card">
+                                    <div class="dpc-card-image">
+                                        <img src="https://source.unsplash.com/random/400x300/?funeral" alt="Green Burial Services">
+                                    </div>
+                                    <div class="dpc-card-content">
+                                        <div class="dpc-card-meta">
+                                            <span class="dpc-card-category">Burials</span>
+                                            <span class="dpc-card-date">May 22, 2023</span>
+                                        </div>
+                                        <h3 class="dpc-card-title">Eco-Friendly Green Burial Options</h3>
+                                        <div class="dpc-card-excerpt">
+                                            Green burial options focus on minimal environmental impact while providing a natural return to the earth.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 3 -->
+                            <div class="swiper-slide dpc-slide" data-post-id="3">
+                                <div class="dpc-card">
+                                    <div class="dpc-card-image">
+                                        <img src="https://source.unsplash.com/random/400x300/?grave" alt="Family Burial Plots">
+                                    </div>
+                                    <div class="dpc-card-content">
+                                        <div class="dpc-card-meta">
+                                            <span class="dpc-card-category">Burials</span>
+                                            <span class="dpc-card-date">April 10, 2023</span>
+                                        </div>
+                                        <h3 class="dpc-card-title">Family Burial Plots: Planning for Generations</h3>
+                                        <div class="dpc-card-excerpt">
+                                            Family burial plots offer a special place for multiple generations to rest together, creating a lasting family legacy.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 4 -->
+                            <div class="swiper-slide dpc-slide" data-post-id="4">
+                                <div class="dpc-card">
+                                    <div class="dpc-card-image">
+                                        <img src="https://source.unsplash.com/random/400x300/?headstone" alt="Burial Monuments">
+                                    </div>
+                                    <div class="dpc-card-content">
+                                        <div class="dpc-card-meta">
+                                            <span class="dpc-card-category">Burials</span>
+                                            <span class="dpc-card-date">March 5, 2023</span>
+                                        </div>
+                                        <h3 class="dpc-card-title">Selecting the Perfect Burial Monument</h3>
+                                        <div class="dpc-card-excerpt">
+                                            Choosing the right monument or headstone is an important decision that creates a lasting tribute to your loved one.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 5 -->
+                            <div class="swiper-slide dpc-slide" data-post-id="5">
+                                <div class="dpc-card">
+                                    <div class="dpc-card-image">
+                                        <img src="https://source.unsplash.com/random/400x300/?casket" alt="Casket Selection">
+                                    </div>
+                                    <div class="dpc-card-content">
+                                        <div class="dpc-card-meta">
+                                            <span class="dpc-card-category">Burials</span>
+                                            <span class="dpc-card-date">February 18, 2023</span>
+                                        </div>
+                                        <h3 class="dpc-card-title">Guide to Casket Selection</h3>
+                                        <div class="dpc-card-excerpt">
+                                            Understanding the various casket options available can help you make an informed choice during a difficult time.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pagination (dots) -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Memorials Carousel (hidden by default) -->
+            <div class="dpc-container" id="dpc_memorials" style="display: none;">
+                <!-- Featured Content Section -->
+                <div class="dpc-featured-content">
+                    <!-- Featured Image -->
+                    <div class="dpc-featured-image">
+                        <img src="https://source.unsplash.com/random/800x600/?memorial" alt="Sample memorial service">
+                    </div>
+                    
+                    <!-- Featured Text Content -->
+                    <div class="dpc-featured-text">
+                        <div class="dpc-featured-meta">
+                            <span class="dpc-featured-category">Memorials</span>
+                            <span class="dpc-featured-date">July 8, 2023</span>
+                        </div>
+                        <h2 class="dpc-featured-title">Creating Meaningful Memorial Services</h2>
+                        <div class="dpc-featured-excerpt">
+                            A meaningful memorial service celebrates the unique life of your loved one and provides comfort to family and friends. In this guide, we share ideas for personalizing memorial services, from selecting readings and music to incorporating special mementos and displays. Our compassionate staff can help you create a service that truly honors your loved one's memory.
+                        </div>
+                        <a href="#" class="dpc-featured-link">Read More &rarr;</a>
+                    </div>
+                </div>
+                
+                <!-- Carousel Section -->
+                <div class="dpc-carousel-wrapper" data-autoplay="true" data-autoplay-speed="5000" data-loop="true" data-id="dpc_memorials">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <!-- Slide 1 -->
+                            <div class="swiper-slide dpc-slide dpc-slide-active" data-post-id="6">
+                                <div class="dpc-card">
+                                    <div class="dpc-card-image">
+                                        <img src="https://source.unsplash.com/random/400x300/?memorial" alt="Memorial Services">
+                                    </div>
+                                    <div class="dpc-card-content">
+                                        <div class="dpc-card-meta">
+                                            <span class="dpc-card-category">Memorials</span>
+                                            <span class="dpc-card-date">July 8, 2023</span>
+                                        </div>
+                                        <h3 class="dpc-card-title">Creating Meaningful Memorial Services</h3>
+                                        <div class="dpc-card-excerpt">
+                                            A meaningful memorial service celebrates the unique life of your loved one and provides comfort to family and friends.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 2 -->
+                            <div class="swiper-slide dpc-slide" data-post-id="7">
+                                <div class="dpc-card">
+                                    <div class="dpc-card-image">
+                                        <img src="https://source.unsplash.com/random/400x300/?monument" alt="Memorial Monuments">
+                                    </div>
+                                    <div class="dpc-card-content">
+                                        <div class="dpc-card-meta">
+                                            <span class="dpc-card-category">Memorials</span>
+                                            <span class="dpc-card-date">June 20, 2023</span>
+                                        </div>
+                                        <h3 class="dpc-card-title">Choosing a Lasting Memorial Monument</h3>
+                                        <div class="dpc-card-excerpt">
+                                            Memorial monuments provide a permanent tribute and place of remembrance for generations to come.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 3 -->
+                            <div class="swiper-slide dpc-slide" data-post-id="8">
+                                <div class="dpc-card">
+                                    <div class="dpc-card-image">
+                                        <img src="https://source.unsplash.com/random/400x300/?remembrance" alt="Virtual Memorials">
+                                    </div>
+                                    <div class="dpc-card-content">
+                                        <div class="dpc-card-meta">
+                                            <span class="dpc-card-category">Memorials</span>
+                                            <span class="dpc-card-date">May 15, 2023</span>
+                                        </div>
+                                        <h3 class="dpc-card-title">Virtual Memorial Services: A Modern Approach</h3>
+                                        <div class="dpc-card-excerpt">
+                                            Virtual memorials allow friends and family from around the world to participate in honoring your loved one.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 4 -->
+                            <div class="swiper-slide dpc-slide" data-post-id="9">
+                                <div class="dpc-card">
+                                    <div class="dpc-card-image">
+                                        <img src="https://source.unsplash.com/random/400x300/?legacy" alt="Memorial Keepsakes">
+                                    </div>
+                                    <div class="dpc-card-content">
+                                        <div class="dpc-card-meta">
+                                            <span class="dpc-card-category">Memorials</span>
+                                            <span class="dpc-card-date">April 3, 2023</span>
+                                        </div>
+                                        <h3 class="dpc-card-title">Memorial Keepsakes: Preserving Memories</h3>
+                                        <div class="dpc-card-excerpt">
+                                            Memorial keepsakes provide a tangible connection to your loved one and can bring comfort in times of grief.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 5 -->
+                            <div class="swiper-slide dpc-slide" data-post-id="10">
+                                <div class="dpc-card">
+                                    <div class="dpc-card-image">
+                                        <img src="https://source.unsplash.com/random/400x300/?celebration" alt="Celebration of Life">
+                                    </div>
+                                    <div class="dpc-card-content">
+                                        <div class="dpc-card-meta">
+                                            <span class="dpc-card-category">Memorials</span>
+                                            <span class="dpc-card-date">March 12, 2023</span>
+                                        </div>
+                                        <h3 class="dpc-card-title">Planning a Celebration of Life</h3>
+                                        <div class="dpc-card-excerpt">
+                                            A celebration of life focuses on honoring your loved one's unique personality, interests, and achievements.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pagination (dots) -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Custom JavaScript for Preview -->
+    <script>
+        // Mock post data for preview
+        window.dpc_data_dpc_burials = {
+            posts: [
+                {
+                    id: 1,
+                    title: "Understanding Traditional Burial Options",
+                    excerpt: "Traditional burial services provide families with a meaningful way to honor and remember their loved ones. This comprehensive guide explains the various options available, from selecting the right burial plot to choosing appropriate memorial markers.",
+                    date: "June 15, 2023",
+                    category: "Burials",
+                    image: "https://source.unsplash.com/random/800x600/?cemetery",
+                    link: "#"
+                },
+                {
+                    id: 2,
+                    title: "Eco-Friendly Green Burial Options",
+                    excerpt: "Green burial options focus on minimal environmental impact while providing a natural return to the earth. Learn about biodegradable caskets, conservation burial grounds, and how to plan an environmentally conscious service.",
+                    date: "May 22, 2023",
+                    category: "Burials",
+                    image: "https://source.unsplash.com/random/800x600/?funeral",
+                    link: "#"
+                },
+                {
+                    id: 3,
+                    title: "Family Burial Plots: Planning for Generations",
+                    excerpt: "Family burial plots offer a special place for multiple generations to rest together, creating a lasting family legacy. This guide helps you understand how to select, purchase, and maintain a family burial estate.",
+                    date: "April 10, 2023",
+                    category: "Burials",
+                    image: "https://source.unsplash.com/random/800x600/?grave",
+                    link: "#"
+                },
+                {
+                    id: 4,
+                    title: "Selecting the Perfect Burial Monument",
+                    excerpt: "Choosing the right monument or headstone is an important decision that creates a lasting tribute to your loved one. This guide walks you through materials, designs, inscriptions, and personalization options.",
+                    date: "March 5, 2023",
+                    category: "Burials",
+                    image: "https://source.unsplash.com/random/800x600/?headstone",
+                    link: "#"
+                },
+                {
+                    id: 5,
+                    title: "Guide to Casket Selection",
+                    excerpt: "Understanding the various casket options available can help you make an informed choice during a difficult time. Learn about materials, styles, personalization options, and considerations for different burial types.",
+                    date: "February 18, 2023",
+                    category: "Burials",
+                    image: "https://source.unsplash.com/random/800x600/?casket",
+                    link: "#"
+                }
+            ]
+        };
+        
+        window.dpc_data_dpc_memorials = {
+            posts: [
+                {
+                    id: 6,
+                    title: "Creating Meaningful Memorial Services",
+                    excerpt: "A meaningful memorial service celebrates the unique life of your loved one and provides comfort to family and friends. In this guide, we share ideas for personalizing memorial services, from selecting readings and music to incorporating special mementos and displays.",
+                    date: "July 8, 2023",
+                    category: "Memorials",
+                    image: "https://source.unsplash.com/random/800x600/?memorial",
+                    link: "#"
+                },
+                {
+                    id: 7,
+                    title: "Choosing a Lasting Memorial Monument",
+                    excerpt: "Memorial monuments provide a permanent tribute and place of remembrance for generations to come. Learn about different types of memorials, from traditional headstones to custom sculptures and benches.",
+                    date: "June 20, 2023",
+                    category: "Memorials",
+                    image: "https://source.unsplash.com/random/800x600/?monument",
+                    link: "#"
+                },
+                {
+                    id: 8,
+                    title: "Virtual Memorial Services: A Modern Approach",
+                    excerpt: "Virtual memorials allow friends and family from around the world to participate in honoring your loved one. This guide covers technology options, planning considerations, and ways to create a meaningful online experience.",
+                    date: "May 15, 2023",
+                    category: "Memorials",
+                    image: "https://source.unsplash.com/random/800x600/?remembrance",
+                    link: "#"
+                },
+                {
+                    id: 9,
+                    title: "Memorial Keepsakes: Preserving Memories",
+                    excerpt: "Memorial keepsakes provide a tangible connection to your loved one and can bring comfort in times of grief. Explore options from jewelry and photo books to custom art pieces and digital memory archives.",
+                    date: "April 3, 2023",
+                    category: "Memorials",
+                    image: "https://source.unsplash.com/random/800x600/?legacy",
+                    link: "#"
+                },
+                {
+                    id: 10,
+                    title: "Planning a Celebration of Life",
+                    excerpt: "A celebration of life focuses on honoring your loved one's unique personality, interests, and achievements. This guide provides ideas for creating a personalized, uplifting service that celebrates a life well-lived.",
+                    date: "March 12, 2023",
+                    category: "Memorials",
+                    image: "https://source.unsplash.com/random/800x600/?celebration",
+                    link: "#"
+                }
+            ]
+        };
+        
+        // Function to change category
+        function changeCategory(category) {
+            document.getElementById('current-category').textContent = category.charAt(0).toUpperCase() + category.slice(1);
+            
+            if (category === 'burials') {
+                document.getElementById('dpc_burials').style.display = 'flex';
+                document.getElementById('dpc_memorials').style.display = 'none';
+            } else {
+                document.getElementById('dpc_burials').style.display = 'none';
+                document.getElementById('dpc_memorials').style.display = 'flex';
+            }
+            
+            // Reinitialize the visible carousel
+            initCarousels();
+        }
+        
+        // Initialize carousels
+        function initCarousels() {
+            $('.dpc-carousel-wrapper').each(function() {
+                const $carouselWrapper = $(this);
+                const $container = $carouselWrapper.closest('.dpc-container');
+                
+                // Skip carousels in hidden containers
+                if ($container.css('display') === 'none') {
+                    return;
+                }
+                
+                const $featuredContent = $container.find('.dpc-featured-content');
+                
+                // Get data attributes
+                const autoplay = $carouselWrapper.data('autoplay') === true;
+                const autoplaySpeed = parseInt($carouselWrapper.data('autoplay-speed'), 10) || 5000;
+                const loop = $carouselWrapper.data('loop') === true;
+                const carouselId = $carouselWrapper.data('id');
+                
+                // Get post data from mock data
+                const postsData = window['dpc_data_' + carouselId]?.posts || [];
+                
+                // Initialize Swiper
+                const swiper = new Swiper($carouselWrapper.find('.swiper-container')[0], {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    loop: loop,
+                    autoplay: autoplay ? {
+                        delay: autoplaySpeed,
+                        disableOnInteraction: false
+                    } : false,
+                    pagination: {
+                        el: $carouselWrapper.find('.swiper-pagination')[0],
+                        clickable: true
+                    },
+                    breakpoints: {
+                        // Mobile
+                        320: {
+                            slidesPerView: 1,
+                            spaceBetween: 10
+                        },
+                        // Tablet
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 20
+                        },
+                        // Desktop
+                        981: {
+                            slidesPerView: 3,
+                            spaceBetween: 30
+                        }
+                    },
+                    on: {
+                        init: function() {
+                            markActiveSlide(this);
+                        },
+                        slideChange: function() {
+                            markActiveSlide(this);
+                            updateFeaturedContent(this);
+                        }
+                    }
+                });
+                
+                // Mark active slide with a class
+                function markActiveSlide(swiper) {
+                    const $slides = $carouselWrapper.find('.dpc-slide');
+                    $slides.removeClass('dpc-slide-active');
+                    
+                    // If loop mode is enabled, we need to find the real slides (not clones)
+                    const activeIndex = swiper.realIndex !== undefined ? swiper.realIndex : swiper.activeIndex;
+                    
+                    $slides.eq(activeIndex).addClass('dpc-slide-active');
+                }
+                
+                // Update featured content when slide changes
+                function updateFeaturedContent(swiper) {
+                    const activeIndex = swiper.realIndex !== undefined ? swiper.realIndex : swiper.activeIndex;
+                    const postData = postsData[activeIndex];
+                    
+                    if (!postData) return;
+                    
+                    // Create featured content
+                    let featuredImageHTML = '';
+                    if (postData.image) {
+                        featuredImageHTML = `
+                            <div class="dpc-featured-image">
+                                <img src="${postData.image}" alt="${postData.title}">
+                            </div>
+                        `;
+                    }
+                    
+                    let categoryHTML = '';
+                    if (postData.category) {
+                        categoryHTML = `<span class="dpc-featured-category">${postData.category}</span>`;
+                    }
+                    
+                    const featuredHTML = `
+                        ${featuredImageHTML}
+                        <div class="dpc-featured-text">
+                            <div class="dpc-featured-meta">
+                                ${categoryHTML}
+                                <span class="dpc-featured-date">${postData.date}</span>
+                            </div>
+                            <h2 class="dpc-featured-title">${postData.title}</h2>
+                            <div class="dpc-featured-excerpt">${postData.excerpt}</div>
+                            <a href="${postData.link}" class="dpc-featured-link">Read More &rarr;</a>
+                        </div>
+                    `;
+                    
+                    // Animate the transition
+                    $featuredContent.fadeOut(200, function() {
+                        $featuredContent.html(featuredHTML).fadeIn(200);
+                    });
+                }
+                
+                // Handle click on carousel slides
+                $carouselWrapper.on('click', '.dpc-slide', function() {
+                    const $slide = $(this);
+                    const slideIndex = $slide.index();
+                    
+                    swiper.slideTo(slideIndex);
+                });
+            });
+        }
+        
+        // Initialize when the page loads
+        $(document).ready(function() {
+            initCarousels();
+        });
+    </script>
+</body>
+</html> 
