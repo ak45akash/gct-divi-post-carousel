@@ -11,6 +11,20 @@
     border-radius: 8px;
     overflow: hidden;
     padding: 30px;
+    max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative; /* For absolute positioned arrows */
+}
+
+/* Module Heading */
+.dpc-heading {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #254B45;
+    line-height: 1.2;
 }
 
 /* Remove Featured Content Section */
@@ -43,6 +57,17 @@
     height: 200px;
     overflow: hidden;
     position: relative;
+}
+
+/* Broken Image Styling */
+.dpc-broken-image {
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
 }
 
 .dpc-card-image img {
@@ -139,6 +164,54 @@
     border: 2px solid #254B45 !important;
 }
 
+/* Navigation arrows styling */
+.dpc-carousel-section .swiper-button-prev,
+.dpc-carousel-section .swiper-button-next {
+    position: absolute;
+    background-color: #ffffff;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    color: #333333;
+    display: none; /* Hide arrows for now */
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dpc-carousel-section .swiper-button-prev:hover,
+.dpc-carousel-section .swiper-button-next:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+.dpc-carousel-section .swiper-button-prev:after,
+.dpc-carousel-section .swiper-button-next:after {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.dpc-carousel-section .swiper-button-prev {
+    left: -45px;
+}
+
+.dpc-carousel-section .swiper-button-next {
+    right: -45px;
+}
+
+/* Hide default focus outline but maintain accessibility */
+.dpc-carousel-section .swiper-button-prev:focus,
+.dpc-carousel-section .swiper-button-next:focus {
+    outline: none;
+    box-shadow: 0px 0px 0px 2px rgba(66, 153, 225, 0.6), 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 /* Touch Enhancements */
 .dpc-slide {
     cursor: pointer;
@@ -219,5 +292,77 @@
         width: 12px;
         height: 12px;
         margin: 0 6px;
+    }
+}
+
+/* Ensure arrow visibility on mobile */
+@media (max-width: 980px) {
+    .dpc-carousel-section .swiper-button-prev,
+    .dpc-carousel-section .swiper-button-next {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .dpc-carousel-section .swiper-button-prev:after, 
+    .dpc-carousel-section .swiper-button-next:after {
+        font-size: 16px;
+    }
+    
+    .dpc-carousel-section .swiper-button-prev {
+        left: -35px;
+    }
+    
+    .dpc-carousel-section .swiper-button-next {
+        right: -35px;
+    }
+}
+
+@media (max-width: 767px) {
+    .dpc-carousel-section .swiper-button-prev,
+    .dpc-carousel-section .swiper-button-next {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .dpc-carousel-section .swiper-button-prev:after, 
+    .dpc-carousel-section .swiper-button-next:after {
+        font-size: 14px;
+    }
+    
+    .dpc-carousel-section .swiper-button-prev {
+        left: -25px;
+    }
+    
+    .dpc-carousel-section .swiper-button-next {
+        right: -25px;
+    }
+    
+    .dpc-container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 479px) {
+    .dpc-carousel-section .swiper-button-prev,
+    .dpc-carousel-section .swiper-button-next {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .dpc-carousel-section .swiper-button-prev:after, 
+    .dpc-carousel-section .swiper-button-next:after {
+        font-size: 12px;
+    }
+    
+    .dpc-carousel-section .swiper-button-prev {
+        left: -20px;
+    }
+    
+    .dpc-carousel-section .swiper-button-next {
+        right: -20px;
+    }
+    
+    .dpc-container {
+        max-width: 92%;
     }
 } 

@@ -144,16 +144,19 @@
         }
         
         /* Fix for potentially broken images */
-        .broken-image {
+        .broken-image:before {
+            content: 'Image not available';
+        }
+        
+        /* Better broken image handling */
+        .dpc-broken-image {
             background-color: #f8f8f8;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #888;
+            text-align: center;
+            color: #999;
             font-size: 14px;
-        }
-        .broken-image:before {
-            content: 'Image not available';
         }
         
         /* Button style updates */
@@ -555,6 +558,14 @@
         
         // Initialize carousels
         function initCarousels() {
+            // Handle broken images throughout the carousel
+            $('.dpc-card-image img').on('error', function() {
+                const $this = $(this);
+                const $parent = $this.parent();
+                $parent.addClass('dpc-broken-image');
+                $this.attr('src', 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3Crect%20fill%3D%22%23f8f8f8%22%20width%3D%22100%25%22%20height%3D%22100%25%22%2F%3E%3Ctext%20fill%3D%22%23999%22%20font-family%3D%22sans-serif%22%20font-size%3D%2214px%22%20text-anchor%3D%22middle%22%20x%3D%2250%25%22%20y%3D%2250%25%22%3EImage%20not%20available%3C%2Ftext%3E%3C%2Fsvg%3E');
+            });
+            
             $('.dpc-carousel-wrapper').each(function() {
                 const $carouselWrapper = $(this);
                 const $container = $carouselWrapper.closest('.dpc-container');
@@ -570,12 +581,6 @@
                 
                 // Get current device
                 const currentDevice = $('.device-btn.active').data('device') || 'desktop';
-                
-                // Handle image loading errors
-                $carouselWrapper.find('img').on('error', function() {
-                    $(this).parent().addClass('broken-image');
-                    $(this).remove();
-                });
                 
                 // Initialize Swiper
                 const swiper = new Swiper($carouselWrapper.find('.swiper-container')[0], {
@@ -665,8 +670,13 @@
         $(document).ready(function() {
             // Handle broken images
             $('img').on('error', function() {
-                $(this).parent().addClass('broken-image');
-                $(this).remove();
+                const $this = $(this);
+                const $parent = $this.parent();
+                // Only apply to images in the carousel
+                if ($parent.hasClass('dpc-card-image')) {
+                    $parent.addClass('dpc-broken-image');
+                    $this.attr('src', 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3Crect%20fill%3D%22%23f8f8f8%22%20width%3D%22100%25%22%20height%3D%22100%25%22%2F%3E%3Ctext%20fill%3D%22%23999%22%20font-family%3D%22sans-serif%22%20font-size%3D%2214px%22%20text-anchor%3D%22middle%22%20x%3D%2250%25%22%20y%3D%2250%25%22%3EImage%20not%20available%3C%2Ftext%3E%3C%2Fsvg%3E');
+                }
             });
             
             // Initialize carousels

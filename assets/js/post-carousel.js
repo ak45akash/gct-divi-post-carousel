@@ -6,14 +6,19 @@
 
     // Initialize all carousels on the page
     function initPostCarousels() {
+        // Handle broken images throughout the carousel
+        $('.dpc-card-image img').on('error', function() {
+            const $this = $(this);
+            const $parent = $this.parent();
+            $parent.addClass('dpc-broken-image');
+            $this.attr('src', 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3Crect%20fill%3D%22%23f8f8f8%22%20width%3D%22100%25%22%20height%3D%22100%25%22%2F%3E%3Ctext%20fill%3D%22%23999%22%20font-family%3D%22sans-serif%22%20font-size%3D%2214px%22%20text-anchor%3D%22middle%22%20x%3D%2250%25%22%20y%3D%2250%25%22%3EImage%20not%20available%3C%2Ftext%3E%3C%2Fsvg%3E');
+        });
+
         $('.dpc-carousel-wrapper').each(function() {
             const $carouselWrapper = $(this);
             const $container = $carouselWrapper.closest('.dpc-container');
-            const $featuredContent = $container.find('.dpc-featured-content');
             
             // Get data attributes
-            const autoplay = $carouselWrapper.data('autoplay') === true;
-            const autoplaySpeed = parseInt($carouselWrapper.data('autoplay-speed'), 10) || 5000;
             const loop = $carouselWrapper.data('loop') === true;
             const carouselId = $carouselWrapper.data('id');
             
@@ -25,10 +30,7 @@
                 slidesPerView: 1,
                 spaceBetween: 20,
                 loop: loop,
-                autoplay: autoplay ? {
-                    delay: autoplaySpeed,
-                    disableOnInteraction: false
-                } : false,
+                autoplay: false, // Disable autoplay
                 pagination: {
                     el: $carouselWrapper.find('.swiper-pagination')[0],
                     clickable: true
@@ -66,13 +68,6 @@
                     }
                 },
                 on: {
-                    init: function() {
-                        markActiveSlide(this);
-                    },
-                    slideChange: function() {
-                        markActiveSlide(this);
-                        updateFeaturedContent(this);
-                    },
                     resize: function() {
                         // Ensure proper layout on window resize
                         this.update();
@@ -100,83 +95,6 @@
                 grabCursor: true,
                 // Add threshold to prevent accidental swipes
                 threshold: 10
-            });
-            
-            // Mark active slide with a class
-            function markActiveSlide(swiper) {
-                const $slides = $carouselWrapper.find('.dpc-slide');
-                $slides.removeClass('dpc-slide-active');
-                
-                // If loop mode is enabled, we need to find the real slides (not clones)
-                const activeIndex = swiper.realIndex !== undefined ? swiper.realIndex : swiper.activeIndex;
-                
-                // Find the real slide (not a clone in loop mode)
-                const $realSlides = $slides.not('.swiper-slide-duplicate');
-                $realSlides.eq(activeIndex).addClass('dpc-slide-active');
-                
-                // Also mark the clone if in loop mode
-                if (loop) {
-                    const $cloneSlides = $slides.filter('.swiper-slide-duplicate');
-                    $cloneSlides.each(function() {
-                        if ($(this).data('swiper-slide-index') === activeIndex) {
-                            $(this).addClass('dpc-slide-active');
-                        }
-                    });
-                }
-            }
-            
-            // Update featured content when slide changes
-            function updateFeaturedContent(swiper) {
-                const activeIndex = swiper.realIndex !== undefined ? swiper.realIndex : swiper.activeIndex;
-                const postData = postsData[activeIndex];
-                
-                if (!postData) return;
-                
-                // Create featured content
-                let featuredImageHTML = '';
-                if (postData.image) {
-                    featuredImageHTML = `
-                        <div class="dpc-featured-image">
-                            <img src="${postData.image}" alt="${postData.title}">
-                        </div>
-                    `;
-                }
-                
-                let categoryHTML = '';
-                if (postData.category) {
-                    categoryHTML = `<span class="dpc-featured-category">${postData.category}</span>`;
-                }
-                
-                const featuredHTML = `
-                    ${featuredImageHTML}
-                    <div class="dpc-featured-text">
-                        <div class="dpc-featured-meta">
-                            ${categoryHTML}
-                            <span class="dpc-featured-date">${postData.date}</span>
-                        </div>
-                        <h2 class="dpc-featured-title">${postData.title}</h2>
-                        <div class="dpc-featured-excerpt">${postData.excerpt}</div>
-                        <a href="${postData.link}" class="dpc-featured-link">Read More</a>
-                    </div>
-                `;
-                
-                // Animate the transition
-                $featuredContent.fadeOut(200, function() {
-                    $featuredContent.html(featuredHTML).fadeIn(200);
-                });
-            }
-            
-            // Handle click on carousel slides
-            $carouselWrapper.on('click', '.dpc-slide', function() {
-                const $slide = $(this);
-                const slideIndex = $slide.attr('data-swiper-slide-index') || $slide.index();
-                
-                // If we're in loop mode, use realIndex to properly navigate
-                if (loop) {
-                    swiper.slideToLoop(parseInt(slideIndex, 10));
-                } else {
-                    swiper.slideTo(parseInt(slideIndex, 10));
-                }
             });
             
             // Handle window resize
