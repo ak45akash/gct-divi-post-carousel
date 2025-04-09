@@ -46,6 +46,7 @@
     margin-bottom: 15px;
     display: flex;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
 .dpc-featured-category {
@@ -67,6 +68,7 @@
     font-size: 24px;
     margin-bottom: 15px;
     color: #333;
+    line-height: 1.3;
 }
 
 .dpc-featured-excerpt {
@@ -82,10 +84,22 @@
     color: #333;
     font-weight: bold;
     transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
 }
 
 .dpc-featured-link:hover {
     color: #000;
+}
+
+.dpc-featured-link:after {
+    content: '\2192';
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.dpc-featured-link:hover:after {
+    transform: translateX(5px);
 }
 
 /* Carousel Section */
@@ -98,6 +112,7 @@
 .swiper-container {
     width: 100%;
     overflow: hidden;
+    padding-bottom: 10px; /* Prevent box-shadow cut-off */
 }
 
 /* Card Styles */
@@ -120,6 +135,24 @@
 .dpc-card-image {
     height: 200px;
     overflow: hidden;
+    position: relative;
+}
+
+.dpc-card-image:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.dpc-card:hover .dpc-card-image:before {
+    opacity: 1;
 }
 
 .dpc-card-image img {
@@ -166,6 +199,13 @@
     font-size: 18px;
     margin-bottom: 10px;
     color: #333;
+    line-height: 1.3;
+    /* Ensure consistent height with line clamping */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.6em;
 }
 
 .dpc-card-excerpt {
@@ -173,6 +213,11 @@
     line-height: 1.5;
     color: #555;
     flex-grow: 1;
+    /* Ensure consistent height with line clamping */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* Pagination */
@@ -193,6 +238,7 @@
     margin: 0 5px;
     opacity: 0.7;
     transition: background-color 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
 }
 
 .swiper-pagination-bullet-active {
@@ -205,9 +251,30 @@
     border: 2px solid #333;
 }
 
+/* Touch Enhancements */
+.dpc-slide {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
 /* Responsive Styles */
+@media (max-width: 1200px) {
+    /* Large screens */
+    .dpc-featured-title {
+        font-size: 22px;
+    }
+    
+    .dpc-card-image {
+        height: 180px;
+    }
+}
+
 @media (max-width: 980px) {
     /* Tablet */
+    .dpc-container {
+        padding: 20px;
+    }
+    
     .dpc-featured-content {
         flex-direction: column;
     }
@@ -220,6 +287,14 @@
     
     .dpc-featured-image {
         height: 300px;
+    }
+    
+    .dpc-featured-title {
+        font-size: 20px;
+    }
+    
+    .dpc-card-title {
+        font-size: 16px;
     }
 }
 
@@ -234,10 +309,84 @@
     }
     
     .dpc-featured-title {
-        font-size: 20px;
+        font-size: 18px;
+    }
+    
+    .dpc-featured-image {
+        height: 250px;
     }
     
     .dpc-card-image {
-        height: 180px;
+        height: 160px;
+    }
+    
+    .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+        margin: 0 4px;
+    }
+}
+
+@media (max-width: 479px) {
+    /* Small Mobile */
+    .dpc-container {
+        padding: 10px;
+    }
+    
+    .dpc-featured-content {
+        margin-bottom: 20px;
+    }
+    
+    .dpc-featured-text {
+        padding: 15px;
+    }
+    
+    .dpc-featured-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    
+    .dpc-featured-excerpt {
+        font-size: 14px;
+        line-height: 1.4;
+        margin-bottom: 15px;
+    }
+    
+    .dpc-featured-image {
+        height: 200px;
+    }
+    
+    .dpc-card-content {
+        padding: 15px;
+    }
+    
+    .dpc-card-title {
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+    
+    .dpc-card-excerpt {
+        font-size: 13px;
+    }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (hover: none) {
+    .dpc-card:hover {
+        transform: none;
+    }
+    
+    .dpc-card:active {
+        transform: translateY(-3px);
+    }
+    
+    .dpc-card-image img:hover {
+        transform: none;
+    }
+    
+    .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        margin: 0 6px;
     }
 } 

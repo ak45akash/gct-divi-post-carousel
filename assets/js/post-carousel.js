@@ -34,18 +34,33 @@
                     clickable: true
                 },
                 breakpoints: {
-                    // Mobile
+                    // Mobile (small)
                     320: {
                         slidesPerView: 1,
                         spaceBetween: 10
                     },
-                    // Tablet
+                    // Mobile (medium)
+                    480: {
+                        slidesPerView: 1,
+                        spaceBetween: 15
+                    },
+                    // Tablet (small)
+                    668: {
+                        slidesPerView: 2,
+                        spaceBetween: 15
+                    },
+                    // Tablet (medium)
                     768: {
                         slidesPerView: 2,
                         spaceBetween: 20
                     },
-                    // Desktop
+                    // Tablet (large) / Desktop (small)
                     981: {
+                        slidesPerView: 3,
+                        spaceBetween: 20
+                    },
+                    // Desktop (medium)
+                    1200: {
                         slidesPerView: 3,
                         spaceBetween: 30
                     }
@@ -57,8 +72,34 @@
                     slideChange: function() {
                         markActiveSlide(this);
                         updateFeaturedContent(this);
+                    },
+                    resize: function() {
+                        // Ensure proper layout on window resize
+                        this.update();
                     }
-                }
+                },
+                keyboard: {
+                    enabled: true,
+                    onlyInViewport: true,
+                },
+                a11y: {
+                    enabled: true,
+                    prevSlideMessage: 'Previous slide',
+                    nextSlideMessage: 'Next slide',
+                    firstSlideMessage: 'This is the first slide',
+                    lastSlideMessage: 'This is the last slide',
+                    paginationBulletMessage: 'Go to slide {{index}}'
+                },
+                // Use free mode for smoother touch experience on mobile
+                freeMode: {
+                    enabled: window.innerWidth < 768,
+                    sticky: true,
+                    momentumRatio: 0.5
+                },
+                // Enable grabbing cursor for better UX
+                grabCursor: true,
+                // Add threshold to prevent accidental swipes
+                threshold: 10
             });
             
             // Mark active slide with a class
@@ -69,7 +110,19 @@
                 // If loop mode is enabled, we need to find the real slides (not clones)
                 const activeIndex = swiper.realIndex !== undefined ? swiper.realIndex : swiper.activeIndex;
                 
-                $slides.eq(activeIndex).addClass('dpc-slide-active');
+                // Find the real slide (not a clone in loop mode)
+                const $realSlides = $slides.not('.swiper-slide-duplicate');
+                $realSlides.eq(activeIndex).addClass('dpc-slide-active');
+                
+                // Also mark the clone if in loop mode
+                if (loop) {
+                    const $cloneSlides = $slides.filter('.swiper-slide-duplicate');
+                    $cloneSlides.each(function() {
+                        if ($(this).data('swiper-slide-index') === activeIndex) {
+                            $(this).addClass('dpc-slide-active');
+                        }
+                    });
+                }
             }
             
             // Update featured content when slide changes
@@ -103,7 +156,7 @@
                         </div>
                         <h2 class="dpc-featured-title">${postData.title}</h2>
                         <div class="dpc-featured-excerpt">${postData.excerpt}</div>
-                        <a href="${postData.link}" class="dpc-featured-link">Read More &rarr;</a>
+                        <a href="${postData.link}" class="dpc-featured-link">Read More</a>
                     </div>
                 `;
                 
@@ -116,9 +169,30 @@
             // Handle click on carousel slides
             $carouselWrapper.on('click', '.dpc-slide', function() {
                 const $slide = $(this);
-                const slideIndex = $slide.index();
+                const slideIndex = $slide.attr('data-swiper-slide-index') || $slide.index();
                 
-                swiper.slideTo(slideIndex);
+                // If we're in loop mode, use realIndex to properly navigate
+                if (loop) {
+                    swiper.slideToLoop(parseInt(slideIndex, 10));
+                } else {
+                    swiper.slideTo(parseInt(slideIndex, 10));
+                }
+            });
+            
+            // Handle window resize
+            $(window).on('resize', function() {
+                // Delay to ensure DOM has settled
+                setTimeout(function() {
+                    swiper.update();
+                }, 100);
+            });
+            
+            // Handle orientation change specifically for mobile
+            $(window).on('orientationchange', function() {
+                // Delay update to ensure orientation has completed
+                setTimeout(function() {
+                    swiper.update();
+                }, 300);
             });
         });
     }
@@ -150,6 +224,13 @@
     // Re-init on Divi Builder changes
     $(window).on('et_builder_api_ready', function() {
         initPostCarousels();
+    });
+    
+    // Re-init when Divi section becomes visible (for tabs/accordion)
+    $(document).on('et_pb_section_visibility_change', function() {
+        setTimeout(function() {
+            initPostCarousels();
+        }, 200);
     });
     
 })(jQuery); 
