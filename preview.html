@@ -171,7 +171,8 @@
             transition: all 0.2s ease;
         }
         .dpc-card-button:hover {
-            background-color: #1b3932;
+            background-color: #F7941D;
+            color: white;
             transform: translateY(-2px);
         }
         
@@ -197,6 +198,71 @@
             opacity: 1;
             background: #254B45;
             border: 2px solid #254B45 !important;
+        }
+        
+        /* Navigation Arrows */
+        .swiper-button-prev, 
+        .swiper-button-next {
+            position: absolute;
+            top: 40%;
+            width: 45px;
+            height: 45px;
+            z-index: 10;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #254B45;
+            background-color: #f5f3eb;
+            transform: translateY(-50%);
+            opacity: 1;
+            border: none;
+            outline: none;
+        }
+        
+        .swiper-button-prev:hover, 
+        .swiper-button-next:hover {
+            color: #fff;
+            background-color: #254B45;
+        }
+        
+        .swiper-button-prev {
+            left: -30px;
+        }
+        
+        .swiper-button-next {
+            right: -30px;
+        }
+        
+        .swiper-button-prev:after, 
+        .swiper-button-next:after {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        /* Make carousel container full width */
+        .dpc-container {
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+        
+        /* Module Heading */
+        .dpc-heading {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            color: #254B45;
+            line-height: 1.2;
+        }
+        
+        /* Remove arrow-related media queries */
+        @media (max-width: 767px) {
+            .dpc-container {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -235,6 +301,9 @@
             <div class="preview-frame desktop">
                 <!-- Burials Carousel -->
                 <div class="dpc-container" id="dpc_burials">
+                    <!-- Heading -->
+                    <h2 class="dpc-heading">Heading Goes Here</h2>
+                    
                     <!-- Carousel Section -->
                     <div class="dpc-carousel-wrapper" data-loop="true" data-id="dpc_burials">
                         <div class="swiper-container">
@@ -328,6 +397,9 @@
                 
                 <!-- Memorials Carousel (hidden by default) -->
                 <div class="dpc-container" id="dpc_memorials" style="display: none;">
+                    <!-- Heading -->
+                    <h2 class="dpc-heading">Heading Goes Here</h2>
+                    
                     <!-- Carousel Section -->
                     <div class="dpc-carousel-wrapper" data-loop="true" data-id="dpc_memorials">
                         <div class="swiper-container">

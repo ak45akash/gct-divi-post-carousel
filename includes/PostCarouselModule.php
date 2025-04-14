@@ -65,6 +65,13 @@ class PostCarouselModule extends ET_Builder_Module {
                 'description' => esc_html__('Select the post type to display in the carousel.', 'divi-post-carousel'),
                 'toggle_slug' => 'main_content',
             ),
+            'heading' => array(
+                'label' => esc_html__('Heading', 'divi-post-carousel'),
+                'type' => 'text',
+                'option_category' => 'basic_option',
+                'description' => esc_html__('Enter a heading to display above the carousel.', 'divi-post-carousel'),
+                'toggle_slug' => 'main_content',
+            ),
             'category' => array(
                 'label' => esc_html__('Service/Category Type', 'divi-post-carousel'),
                 'type' => 'select',
@@ -106,17 +113,6 @@ class PostCarouselModule extends ET_Builder_Module {
                 'default' => 'on',
                 'toggle_slug' => 'elements',
             ),
-            'show_meta' => array(
-                'label' => esc_html__('Show Meta', 'divi-post-carousel'),
-                'type' => 'yes_no_button',
-                'option_category' => 'configuration',
-                'options' => array(
-                    'on' => esc_html__('Yes', 'divi-post-carousel'),
-                    'off' => esc_html__('No', 'divi-post-carousel'),
-                ),
-                'default' => 'on',
-                'toggle_slug' => 'elements',
-            ),
             'show_image' => array(
                 'label' => esc_html__('Show Featured Image', 'divi-post-carousel'),
                 'type' => 'yes_no_button',
@@ -128,6 +124,28 @@ class PostCarouselModule extends ET_Builder_Module {
                 'default' => 'on',
                 'toggle_slug' => 'elements',
             ),
+            'show_button' => array(
+                'label' => esc_html__('Show Learn More Button', 'divi-post-carousel'),
+                'type' => 'yes_no_button',
+                'option_category' => 'configuration',
+                'options' => array(
+                    'on' => esc_html__('Yes', 'divi-post-carousel'),
+                    'off' => esc_html__('No', 'divi-post-carousel'),
+                ),
+                'default' => 'on',
+                'toggle_slug' => 'elements',
+            ),
+            'button_text' => array(
+                'label' => esc_html__('Button Text', 'divi-post-carousel'),
+                'type' => 'text',
+                'option_category' => 'configuration',
+                'description' => esc_html__('Text to display on the button.', 'divi-post-carousel'),
+                'default' => 'Learn More',
+                'toggle_slug' => 'elements',
+                'show_if' => array(
+                    'show_button' => 'on',
+                ),
+            ),
             'excerpt_length' => array(
                 'label' => esc_html__('Excerpt Length', 'divi-post-carousel'),
                 'type' => 'text',
@@ -137,30 +155,6 @@ class PostCarouselModule extends ET_Builder_Module {
                 'default' => '150',
                 'show_if' => array(
                     'show_excerpt' => 'on',
-                ),
-            ),
-            'autoplay' => array(
-                'label' => esc_html__('Autoplay', 'divi-post-carousel'),
-                'type' => 'yes_no_button',
-                'option_category' => 'configuration',
-                'options' => array(
-                    'on' => esc_html__('Yes', 'divi-post-carousel'),
-                    'off' => esc_html__('No', 'divi-post-carousel'),
-                ),
-                'default' => 'on',
-                'toggle_slug' => 'carousel',
-                'tab_slug' => 'advanced',
-            ),
-            'autoplay_speed' => array(
-                'label' => esc_html__('Autoplay Speed (ms)', 'divi-post-carousel'),
-                'type' => 'text',
-                'option_category' => 'configuration',
-                'description' => esc_html__('Speed of the autoplay slideshow in milliseconds.', 'divi-post-carousel'),
-                'toggle_slug' => 'carousel',
-                'tab_slug' => 'advanced',
-                'default' => '5000',
-                'show_if' => array(
-                    'autoplay' => 'on',
                 ),
             ),
             'loop' => array(
@@ -248,12 +242,12 @@ class PostCarouselModule extends ET_Builder_Module {
         $posts_number = $this->props['posts_number'];
         $show_title = $this->props['show_title'];
         $show_excerpt = $this->props['show_excerpt'];
-        $show_meta = $this->props['show_meta'];
         $show_image = $this->props['show_image'];
+        $show_button = $this->props['show_button'];
+        $button_text = $this->props['button_text'];
         $excerpt_length = $this->props['excerpt_length'];
-        $autoplay = $this->props['autoplay'];
-        $autoplay_speed = $this->props['autoplay_speed'];
         $loop = $this->props['loop'];
+        $heading = isset($this->props['heading']) ? $this->props['heading'] : '';
 
         // Query arguments
         $args = array(
@@ -285,9 +279,7 @@ class PostCarouselModule extends ET_Builder_Module {
             
             // Set carousel data attributes for JavaScript
             $data_attrs = sprintf(
-                'data-autoplay="%1$s" data-autoplay-speed="%2$s" data-loop="%3$s" data-id="%4$s"',
-                $autoplay === 'on' ? 'true' : 'false',
-                esc_attr($autoplay_speed),
+                'data-loop="%1$s" data-id="%2$s"',
                 $loop === 'on' ? 'true' : 'false',
                 esc_attr($carousel_id)
             );
@@ -295,60 +287,11 @@ class PostCarouselModule extends ET_Builder_Module {
             // Start container
             $output .= '<div class="dpc-container" id="' . esc_attr($carousel_id) . '">';
             
-            // Featured content section
-            $output .= '<div class="dpc-featured-content">';
-            
-            // Get the first post for initial featured content
-            $query->the_post();
-            $first_post_id = get_the_ID();
-            
-            // Featured image for the first post
-            if ('on' === $show_image && has_post_thumbnail()) {
-                $output .= '<div class="dpc-featured-image">';
-                $output .= get_the_post_thumbnail($first_post_id, 'large');
-                $output .= '</div>';
+            // Add heading if it exists
+            if (!empty($heading)) {
+                $output .= '<h2 class="dpc-heading">' . esc_html($heading) . '</h2>';
             }
             
-            // Featured text content
-            $output .= '<div class="dpc-featured-text">';
-            
-            // Post meta (category & date)
-            if ('on' === $show_meta) {
-                $output .= '<div class="dpc-featured-meta">';
-                
-                // Category
-                $categories = get_the_category();
-                if (!empty($categories)) {
-                    $output .= '<span class="dpc-featured-category">' . esc_html($categories[0]->name) . '</span>';
-                }
-                
-                // Date
-                $output .= '<span class="dpc-featured-date">' . get_the_date() . '</span>';
-                
-                $output .= '</div>';
-            }
-            
-            // Title
-            if ('on' === $show_title) {
-                $output .= '<h2 class="dpc-featured-title">' . get_the_title() . '</h2>';
-            }
-            
-            // Excerpt
-            if ('on' === $show_excerpt) {
-                $excerpt = get_the_excerpt();
-                $excerpt = wp_trim_words($excerpt, $excerpt_length, '...');
-                $output .= '<div class="dpc-featured-excerpt">' . $excerpt . '</div>';
-            }
-            
-            // Read More link
-            $output .= '<a href="' . get_permalink() . '" class="dpc-featured-link">' . esc_html__('Read More', 'divi-post-carousel') . ' &rarr;</a>';
-            
-            $output .= '</div>'; // .dpc-featured-text
-            $output .= '</div>'; // .dpc-featured-content
-            
-            // Reset the query to the beginning
-            $query->rewind_posts();
-
             // Carousel section
             $output .= '<div class="dpc-carousel-wrapper" ' . $data_attrs . '>';
             $output .= '<div class="swiper-container">';
@@ -359,10 +302,7 @@ class PostCarouselModule extends ET_Builder_Module {
                 $query->the_post();
                 $post_id = get_the_ID();
                 
-                // Determine if this is the active slide
-                $active_class = ($post_id === $first_post_id) ? ' dpc-slide-active' : '';
-                
-                $output .= '<div class="swiper-slide dpc-slide' . $active_class . '" data-post-id="' . esc_attr($post_id) . '">';
+                $output .= '<div class="swiper-slide dpc-slide" data-post-id="' . esc_attr($post_id) . '">';
                 $output .= '<div class="dpc-card">';
                 
                 // Card Image
@@ -374,22 +314,6 @@ class PostCarouselModule extends ET_Builder_Module {
                 
                 // Card Content
                 $output .= '<div class="dpc-card-content">';
-                
-                // Post meta (category & date)
-                if ('on' === $show_meta) {
-                    $output .= '<div class="dpc-card-meta">';
-                    
-                    // Category
-                    $categories = get_the_category();
-                    if (!empty($categories)) {
-                        $output .= '<span class="dpc-card-category">' . esc_html($categories[0]->name) . '</span>';
-                    }
-                    
-                    // Date
-                    $output .= '<span class="dpc-card-date">' . get_the_date() . '</span>';
-                    
-                    $output .= '</div>';
-                }
                 
                 // Title
                 if ('on' === $show_title) {
@@ -403,12 +327,21 @@ class PostCarouselModule extends ET_Builder_Module {
                     $output .= '<div class="dpc-card-excerpt">' . $excerpt . '</div>';
                 }
                 
+                // Learn More Button
+                if ('on' === $show_button) {
+                    $output .= '<a href="' . get_permalink() . '" class="dpc-card-button">' . esc_html($button_text) . '</a>';
+                }
+                
                 $output .= '</div>'; // .dpc-card-content
                 $output .= '</div>'; // .dpc-card
                 $output .= '</div>'; // .swiper-slide
             }
             
             $output .= '</div>'; // .swiper-wrapper
+            
+            // Add navigation arrows
+            $output .= '<div class="swiper-button-next"></div>';
+            $output .= '<div class="swiper-button-prev"></div>';
             
             // Add pagination (dots)
             $output .= '<div class="swiper-pagination"></div>';
@@ -429,7 +362,6 @@ class PostCarouselModule extends ET_Builder_Module {
                     'id' => $post_id,
                     'title' => get_the_title(),
                     'excerpt' => wp_trim_words(get_the_excerpt(), $excerpt_length, '...'),
-                    'date' => get_the_date(),
                     'link' => get_permalink(),
                 );
                 
